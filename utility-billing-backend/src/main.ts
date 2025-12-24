@@ -6,7 +6,7 @@ async function bootstrap() {
 
   app.enableCors({
     origin: [
-      'https://admin-utility-bill-calculator.vercel.app',
+      'https://admin-driven-bill-calculator-git-main-sakins-projects-4a24a43c.vercel.app',
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
