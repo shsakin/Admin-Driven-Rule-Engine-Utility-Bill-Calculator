@@ -60,6 +60,3 @@ This system allows:
 ### Database
 - **Neon (Serverless PostgreSQL)**
 
-
-## 🏗️ System Architecture
-
