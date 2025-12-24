@@ -6,10 +6,10 @@ async function bootstrap() {
 
   app.enableCors({
     origin: [
-      'https://admin-driven-bill-calculator-git-main-sakins-projects-4a24a43c.vercel.app',
+      'https://admin-utility-bill-calculator-git-main-sakins-projects-4a24a43c.vercel.app',
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'Origin', 'X-Auth-Token'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Origin', 'X-Auth-Token', 'Access-Control-Allow-Origin'],
   });
 
   await app.listen(process.env.PORT || 3000);
