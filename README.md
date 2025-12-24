@@ -5,7 +5,7 @@ A **full-stack utility billing system** where pricing rules are securely managed
 This project demonstrates **secure configuration management, clean backend architecture, and real-world deployment** using modern web technologies.
 
 ---
-Live link: [(https://admin-utility-bill-calculator.vercel.app/)](https://admin-utility-bill-calculator.vercel.app/user)
+Live link: https://admin-utility-bill-calculator.vercel.app
 
 ## 📌 Project Overview
 
