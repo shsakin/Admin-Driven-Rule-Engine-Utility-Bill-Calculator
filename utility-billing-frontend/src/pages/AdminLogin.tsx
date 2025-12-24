@@ -1,54 +1,77 @@
 import { useState } from 'react';
+import api from '../api/client';
 import { useAdminAuth } from '../context/AdminAuthContext';
 
 export default function AdminLogin() {
   const { login } = useAdminAuth();
-  const [key, setKey] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const submit = () => {
-    if (!key) {
-      setError('Admin password required');
+  const submit = async () => {
+    if (!password) {
+      setError('Admin password is required');
       return;
     }
-    login(key);
+
+    setLoading(true);
+    setError('');
+
+    try {
+      await api.get('/pricing/verify-admin', {
+        headers: { 'x-admin-key': password },
+      });
+
+      // ✅ Password correct
+      login(password);
+    } catch (err: any) {
+      // ❌ Password wrong
+      setError('Invalid admin password');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div style={card}>
-      <h2>⚠ Admin Access</h2>
-      <p style={{ color: '#6b7280', fontSize: 14 }}>
-        This area is restricted. Enter admin password to continue.
+      <h2>⚠ Admin Access Restricted</h2>
+      <p style={hint}>
+        You must enter the admin password to access this page.
       </p>
 
       <input
         type="password"
         placeholder="Admin password"
-        value={key}
-        onChange={(e) => setKey(e.target.value)}
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
         style={input}
       />
 
-      <button style={button} onClick={submit}>
-        Enter Admin Panel
+      <button style={button} onClick={submit} disabled={loading}>
+        {loading ? 'Verifying...' : 'Enter Admin Panel'}
       </button>
 
-      {error && <p style={{ marginTop: 8 }}>{error}</p>}
+      {error && <p style={errorText}>{error}</p>}
     </div>
   );
 }
 
 const card = {
-  background: '#fff',
+  background: '#ffffff',
   padding: 24,
   borderRadius: 8,
   border: '1px solid #e5e7eb',
 };
 
+const hint = {
+  color: '#6b7280',
+  fontSize: 14,
+  marginBottom: 12,
+};
+
 const input = {
   width: '100%',
   padding: '10px 12px',
-  marginTop: 12,
   marginBottom: 12,
   borderRadius: 6,
   border: '1px solid #d1d5db',
@@ -58,8 +81,13 @@ const button = {
   width: '100%',
   padding: '10px',
   background: '#111827',
-  color: '#fff',
+  color: '#ffffff',
   border: 'none',
   borderRadius: 6,
   cursor: 'pointer',
+};
+
+const errorText = {
+  color: '#dc2626',
+  marginTop: 10,
 };

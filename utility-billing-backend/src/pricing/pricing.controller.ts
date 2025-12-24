@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Get } from '@nestjs/common';
 import { PricingService } from './pricing.service';
 import { UpdatePricingDto } from './pricing.dto';
 import { AdminGuard } from '../common/admin.guard';
@@ -6,6 +6,12 @@ import { AdminGuard } from '../common/admin.guard';
 @Controller('pricing')
 export class PricingController {
   constructor(private service: PricingService) {}
+ 
+  @UseGuards(AdminGuard)
+  @Get('verify-admin')
+  verifyAdmin() {
+    return { success: true };
+  }
 
   @UseGuards(AdminGuard)
   @Post()
@@ -13,3 +19,4 @@ export class PricingController {
     return this.service.updatePricing(dto);
   }
 }
+

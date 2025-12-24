@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import api from '../api/client';
+import { generateBillPDF } from '../utils/pdf';
 
 export default function UserPage() {
   const [units, setUnits] = useState('');
@@ -42,6 +43,14 @@ export default function UserPage() {
           <Row label="Service Charge" value={result.serviceCharge} />
           <hr />
           <Row label="Total" value={result.total} bold />
+
+          {/* PDF Download Button */}
+          <button
+            style={{ ...button, marginTop: 12 }}
+            onClick={() => generateBillPDF(result)}
+          >
+            Download PDF
+          </button>
         </div>
       )}
     </div>
